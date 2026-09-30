@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NEURALINK — Otak vs Mesin Berpikir | Neurosains Interaktif</title>
+<meta name="description" content="Eksplorasi profesional cara otak manusia dan model bahasa berpikir. Visualisasi interaktif Neuralink, neuron, dan LLM." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div id="progress"></div>
+<div class="noise"></div>
+<div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div>
+<div id="cursorGlow"></div>
+<canvas id="neural-bg"></canvas>
+<div id="toast" class="mono"></div>
+
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#" class="logo"><span class="logo-mark"></span> NEURA<span>LINK</span>.LAB</a>
+    <div class="nav-links">
+      <a href="#otak">Otak</a>
+      <a href="#jaringan">Jaringan Saraf</a>
+      <a href="#llm">Model Bahasa</a>
+      <a href="#lab">Lab Neuron</a>
+      <a href="#neuralink">Neuralink</a>
+    </div>
+    <a href="#lab" class="btn-small">Buka Lab</a>
+    <button id="menuBtn" aria-label="Buka menu navigasi" aria-expanded="false">
+      <span class="menu-bar"></span>
+      <span class="menu-bar"></span>
+      <span class="menu-bar"></span>
+    </button>
+  </div>
+  <div id="mobileMenu" aria-hidden="true">
+    <a href="#otak"><span class="m-num">01</span><span>Otak Biologis</span><span class="m-arr">→</span></a>
+    <a href="#jaringan"><span class="m-num">02</span><span>Jaringan Saraf</span><span class="m-arr">→</span></a>
+    <a href="#llm"><span class="m-num">03</span><span>Model Bahasa</span><span class="m-arr">→</span></a>
+    <a href="#banding"><span class="m-num">04</span><span>Otak vs AI</span><span class="m-arr">→</span></a>
+    <a href="#lab"><span class="m-num">05</span><span>Lab Neuron</span><span class="m-arr">→</span></a>
+    <a href="#neuralink"><span class="m-num">06</span><span>Neuralink BCI</span><span class="m-arr">→</span></a>
+    <div class="mob-menu-foot">
+      <a href="#lab" class="btn-primary sm mob-lab-btn">Buka Lab Interaktif ⚡</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-grid">
+    <div class="hero-left">
+      <div class="badge"><span class="pulse"></span> NEURALINK · NEUROSAINS · MODEL BAHASA — 2026</div>
+      <h1>Bagaimana <em>Otak</em> dan <em>Model Bahasa</em> Bekerja</h1>
+      <p class="lead">Perbandingan langsung antara <b>86 miliar neuron biologis</b> dan arsitektur <b>transformer</b>. Setiap visualisasi di bawah dapat diinteraksikan untuk memahami mekanismenya.</p>
+      <div class="cta-row">
+        <a href="#lab" class="btn-primary">Masuk Lab Interaktif</a>
+        <a href="#banding" class="btn-ghost">Perbandingan Otak vs AI</a>
+      </div>
+      <div class="stats">
+        <div class="stat"><strong data-count="86" data-suffix="M">0</strong><span> miliar neuron di otak</span></div>
+        <div class="stat"><strong data-count="100" data-suffix="T">0</strong><span> triliun sinapsis</span></div>
+        <div class="stat"><strong data-count="1024" data-suffix="">0</strong><span> kanal elektroda Neuralink N1</span></div>
+        <div class="stat"><strong data-count="20" data-suffix="W">0</strong><span> daya otak vs 700W GPU cluster</span></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hud-card">
+        <div class="hud-head"><span>LIVE DECODING • N1 IMPLANT</span><span class="live-dot"></span></div>
+        <canvas id="spikeHero" height="160"></canvas>
+        <div class="hud-rows">
+          <div><label>Motor Cortex — tangan kanan</label><div class="bar"><i style="width:82%"></i></div></div>
+          <div><label>Broca — niat bicara</label><div class="bar violet"><i style="width:64%"></i></div></div>
+          <div><label>Cursor control — X/Y</label><div class="bar lime"><i style="width:91%"></i></div></div>
+        </div>
+        <div class="hud-foot mono">spike rate 3.42 kHz • latency 12ms • decoder: RNN v4</div>
+      </div>
+      <div class="hud-card small">
+        <div class="mono" id="tokenStream">LLM thinking: otak → [0.92] neuron → [0.87] sinapsis → ...</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">SCROLL UNTUK EKSPLORASI</div>
+</header>
+
+<main>
+<!-- OTAK -->
+<section id="otak" class="section reveal">
+  <div class="sec-tag">01 / NEUROSAINS</div>
+  <h2>Cara Otak <em>Berpikir</em></h2>
+  <p class="sec-desc">Otak tidak memproses seperti CPU. Ia adalah jaringan elektrokimia yang spars, analog, dan selalu berplastisitas. Tiga prinsip kuncinya:</p>
+  <div class="cards3">
+    <div class="card"><h3>Spike dan Potensial Aksi</h3><p>Neuron menumpuk muatan hingga ambang <span class="mono">-55 mV</span>, lalu melepaskan spike dalam 1 ms. Informasi dikodekan dalam <b>frekuensi dan waktu tembakan</b>, bukan biner statis.</p><div class="mono tag">~200 Hz maks / neuron</div></div>
+    <div class="card"><h3>Sinapsis Plastis</h3><p>Kekuatan koneksi berubah melalui <b>plasticity Hebbian</b>: koneksi yang sering aktif bersama akan menguat. Dasar biologis memori — LTP dan LTD.</p><div class="mono tag">100T sinapsis adaptif</div></div>
+    <div class="card"><h3>Osilasi dan Prediksi</h3><p>Otak bekerja sebagai <b>sistem prediksi</b> (predictive coding). Osilasi gamma (30-100 Hz) mengikat persepsi, beta untuk kontrol motorik.</p><div class="mono tag">daya total ≈ 20 Watt</div></div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><h3>Penjelajah Area Otak</h3><span class="mono">peta interaktif</span></div>
+    <div class="brain-grid">
+      <svg id="brainSvg" viewBox="0 0 400 260">
+        <ellipse cx="200" cy="130" rx="150" ry="100" class="brain-outline"/>
+        <line x1="200" y1="35" x2="200" y2="225" class="brain-fissure"/>
+        <g id="brainNodes">
+          <circle data-region="frontal" cx="110" cy="110" r="18" />
+          <circle data-region="broca" cx="130" cy="160" r="14" />
+          <circle data-region="motor" cx="185" cy="90" r="16" />
+          <circle data-region="sensory" cx="225" cy="95" r="16" />
+          <circle data-region="wernicke" cx="260" cy="155" r="14" />
+          <circle data-region="visual" cx="315" cy="130" r="18" />
+          <circle data-region="hippocampus" cx="200" cy="170" r="13" />
+        </g>
+      </svg>
+      <div id="regionInfo" class="region-info">
+        <h4 id="regionTitle">Pilih area otak</h4>
+        <p id="regionDesc">Klik lingkaran di peta untuk melihat fungsi, frekuensi dominan, dan relevansinya dengan Neuralink & LLM.</p>
+        <div class="mono" id="regionMeta">—</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JARINGAN SARAF -->
+<section id="jaringan" class="section reveal">
+  <div class="sec-tag">02 / JARINGAN SARAF</div>
+  <h2>Simulasi <em>Jaringan Spiking</em></h2>
+  <p class="sec-desc">Klik area kosong untuk menambah neuron. Klik neuron untuk menstimulasi. Seret untuk memindahkan. Spike merambat melalui sinapsis. Dengan plastisitas aktif, bobot sinapsis yang sering terpakai akan menguat.</p>
+  <div class="panel net-panel">
+    <div class="net-toolbar">
+      <button id="netStim" class="btn-primary sm">Stimulasi Acak</button>
+      <button id="netBurst" class="btn-ghost sm">Gelombang Burst</button>
+      <button id="netAdd" class="btn-ghost sm">Tambah 5 Neuron</button>
+      <button id="netClear" class="btn-ghost sm">Reset</button>
+      <label class="switch">Plastisitas Hebbian <input type="checkbox" id="netPlast" checked /><span></span></label>
+    </div>
+    <div class="net-controls">
+      <label>Threshold: <b id="netThrVal">0.8</b><input type="range" id="netThr" min="0.3" max="1.5" step="0.05" value="0.8"/></label>
+      <label>Kecepatan rambat: <b id="netSpdVal">1.0x</b><input type="range" id="netSpd" min="0.3" max="2.5" step="0.1" value="1"/></label>
+      <label>Konektivitas: <b id="netConVal">sedang</b><input type="range" id="netCon" min="1" max="3" step="1" value="2"/></label>
+    </div>
+    <div class="net-wrap"><canvas id="netPlay" height="420"></canvas>
+      <div class="net-stats mono"><span><b id="netSpikes">0</b> spikes</span><span>rate <b id="netRate">0</b>/s</span><span>bobot rata-rata <b id="netW">0.50</b></span><span><b id="netN">0</b> neuron</span></div>
+    </div>
+    <p class="hint">Stimulasi satu neuron secara berulang untuk melihat penguatan sinapsis (LTP). Pola ledakan seperti ini yang direkam dan di-decode oleh Neuralink.</p>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><h3>Potensial Aksi — 5 Fase dalam 3 ms</h3><span class="mono">pilih fase</span></div>
+    <div class="ap-grid">
+      <div>
+        <div class="ap-phases">
+          <button data-ap="0" class="ap-btn active">Resting<br><small>-70mV</small></button>
+          <button data-ap="1" class="ap-btn">Stimulus<br><small>-55mV</small></button>
+          <button data-ap="2" class="ap-btn">Depolarisasi<br><small>+40mV</small></button>
+          <button data-ap="3" class="ap-btn">Repolarisasi<br><small>-80mV</small></button>
+          <button data-ap="4" class="ap-btn">Hiperpolarisasi<br><small>pemulihan</small></button>
+        </div>
+        <h4 id="apTitle">Resting Potential</h4>
+        <p id="apDesc" class="hint">Pompa Na⁺/K⁺ menjaga -70mV. Kanal Na⁺ tertutup, K⁺ sedikit bocor. Neuron menunggu input dendrit.</p>
+        <div class="ion-row">
+          <div class="ion" id="ionNa">Na⁺<b>tertutup</b></div>
+          <div class="ion" id="ionK">K⁺<b>bocor dikit</b></div>
+          <div class="ion" id="ionV">V<sub>m</sub><b>-70 mV</b></div>
+        </div>
+        <button id="apPlay" class="btn-primary sm">Putar Animasi Penuh</button>
+      </div>
+      <div><canvas id="apCanvas" height="260"></canvas>
+        <canvas id="axonCanvas" height="64"></canvas>
+        <div class="mono axon-label">DENDRIT → SOMA → AKSON → SINAPSIS • spike merambat →</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LLM -->
+<section id="llm" class="section reveal">
+  <div class="sec-tag">03 / MACHINE INTELLIGENCE</div>
+  <h2>Cara Model Bahasa <em>Berpikir</em></h2>
+  <p class="sec-desc">LLM tidak “memahami” seperti manusia. Ia melakukan <b>prediksi token berikutnya</b> dengan aljabar vektor raksasa. Berikut alurnya:</p>
+  <div class="pipeline">
+    <div class="pipe"><span>1</span><b>Tokenisasi</b><p>Teks → 4.000–200.000 token ID. “Neurosains” → [neuro, sains]</p></div>
+    <div class="arrow">→</div>
+    <div class="pipe"><span>2</span><b>Embedding</b><p>Setiap token → vektor 12.288 dimensi (ruang makna).</p></div>
+    <div class="arrow">→</div>
+    <div class="pipe"><span>3</span><b>Attention</b><p>96 head × 96 layer saling bertanya: “kata mana relevan?”</p></div>
+    <div class="arrow">→</div>
+    <div class="pipe"><span>4</span><b>Sampling</b><p>Softmax + temperature → pilih token berikutnya.</p></div>
+  </div>
+  <div class="panel">
+    <div class="panel-head"><h3>Simulasi Prediksi Token</h3><span class="mono">simulasi softmax</span></div>
+    <div class="playground">
+      <div class="pg-controls">
+        <label>Prompt awal
+          <select id="promptSel">
+            <option value="otak">Otak manusia bekerja dengan</option>
+            <option value="neuralink">Neuralink memungkinkan pasien</option>
+            <option value="ai">Model bahasa memprediksi kata</option>
+          </select>
+        </label>
+        <label>Temperature (kreativitas): <b id="tempVal">0.8</b>
+          <input type="range" id="tempSlider" min="0.1" max="1.8" step="0.1" value="0.8" />
+        </label>
+        <div class="pg-btn-row">
+          <button id="genBtn" class="btn-primary sm">Generate</button>
+          <button id="clearBtn" class="btn-ghost sm">Reset</button>
+        </div>
+      </div>
+      <div id="tokenOut" class="token-out mono"></div>
+      <div class="prob-bars" id="probBars"></div>
+      <p class="hint">Ini simulasi edukasi (distribusi probabilitas buatan). Model asli memakai miliaran parameter & softmax nyata. Naikkan temperature → output makin acak & kreatif.</p>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-head"><h3>Visualisasi Attention Head</h3><span class="mono">pilih kata</span></div>
+    <p class="hint">Pada transformer, setiap token menghitung bobot terhadap semua token lain. Klik kata di bawah untuk melihat distribusi attention-nya.</p>
+    <div id="attWords" class="att-words"></div>
+    <div class="att-grid">
+      <canvas id="attCanvas" height="220"></canvas>
+      <div class="att-info"><h4 id="attTitle">Pilih kata</h4><p id="attDesc" class="hint">Nilai tinggi menunjukkan attention kuat terhadap token tersebut.</p><div class="mono" id="attMeta">—</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- BANDING -->
+<section id="banding" class="section reveal">
+  <div class="sec-tag">04 / PERBANDINGAN</div>
+  <h2>Otak vs LLM: <em>Perbandingan</em></h2>
+  <div class="toggle-row">
+    <button class="toggle active" data-view="table">Tabel</button>
+    <button class="toggle" data-view="chart">Grafik Skala</button>
+    <button class="toggle" data-view="energy">Efisiensi Energi</button>
+  </div>
+  <div class="table-scroll-hint mono">
+    <span>⇄</span> Geser horizontal untuk melihat tabel komparasi lengkap
+  </div>
+  <div id="view-table" class="compare-wrap">
+    <table class="compare">
+      <thead><tr><th>Aspek</th><th>Otak Biologis</th><th>LLM (kelas GPT)</th></tr></thead>
+      <tbody>
+        <tr><td>Unit dasar</td><td>Neuron analog, spike temporal</td><td>Neuron artifisial, matriks float</td></tr>
+        <tr><td>Jumlah unit</td><td>86 miliar neuron</td><td>~100 miliar – 1,8 triliun parameter</td></tr>
+        <tr><td>Pembelajaran</td><td>Hebbian, online, sekali lihat bisa ingat</td><td>Backprop, butuh jutaan contoh + GPU bulan-an</td></tr>
+        <tr><td>Energi</td><td>~20 Watt, sangat efisien</td><td>Training MW, inferensi ~ratusan Watt</td></tr>
+        <tr><td>Memori</td><td>Asosiatif, rekonstruktif, lupa itu fitur</td><td>Konteks jendela tetap, halusinasi jika tak tahu</td></tr>
+        <tr><td>Cara “berpikir”</td><td>Prediksi sensorimotor + embodied</td><td>Prediksi statistik token berikutnya</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div id="view-chart" class="compare-wrap hidden">
+    <div class="chart-grid">
+      <div class="chart-box"><h4>Skala Parameter / Sinapsis (log)</h4><canvas id="chartScale"></canvas></div>
+      <div class="chart-box"><h4>Kecepatan Belajar vs Data</h4><canvas id="chartLearn"></canvas></div>
+    </div>
+  </div>
+  <div id="view-energy" class="compare-wrap hidden">
+    <div class="chart-grid">
+      <div class="chart-box"><h4>Watt per Tugas Kognitif</h4><canvas id="chartEnergy"></canvas></div>
+      <div class="energy-note"><h4>Mengapa otak menang?</h4><p>Otak memakai <b>komputasi in-memory</b>, sinyal spars (hanya ~1% neuron aktif bersamaan), dan presisi rendah (analog). Chip neuromorfik & Neuralink mencoba meniru prinsip ini: proses di dekat sensor, kirim hanya spike penting.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- LAB -->
+<section id="lab" class="section reveal">
+  <div class="sec-tag">05 / LABORATORIUM</div>
+  <h2>Lab <em>Neuron</em></h2>
+  <div class="lab-grid">
+    <div class="panel">
+      <div class="panel-head"><h3>Simulator Neuron (Integrate-and-Fire)</h3><span class="mono" id="spikeStat">0 spikes</span></div>
+      <label>Arus stimulus (input): <b id="curVal">8.0</b> nA <input type="range" id="curSlider" min="0" max="15" step="0.5" value="8"/></label>
+      <label>Ambang tembak (threshold): <b id="thrVal">-55</b> mV <input type="range" id="thrSlider" min="-65" max="-45" step="1" value="-55"/></label>
+      <label>Kebocoran membran: <b id="leakVal">0.10</b> <input type="range" id="leakSlider" min="0.01" max="0.3" step="0.01" value="0.1"/></label>
+      <canvas id="neuronCanvas" height="180"></canvas>
+      <canvas id="axonStrip" height="58"></canvas>
+      <div class="mono axon-label">SOMA <span id="somaState">● istirahat</span> → AKSON → spike berjalan saat tembak</div>
+      <p class="hint">Model: V(t+1) = V(t) + I − leak·(V−rest). Jika V ≥ threshold → spike + reset. Strip bawah memvisualkan spike berjalan di akson — seperti yang direkam Neuralink.</p>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><h3>Array Elektroda N1 — 1024 Kanal</h3><span class="mono">arahkan kursor untuk detail sinyal</span></div>
+      <div id="electrodeGrid" class="electrodes"></div>
+      <div class="mono" id="electrodeInfo">kanal #— • hover / tap kotak di atas</div>
+      <div class="n1-specs">
+        <div><b>64</b><span> threads ultra-tipis</span></div>
+        <div><b>1024</b><span> elektroda</span></div>
+        <div><b>R1</b><span> robot bedah</span></div>
+        <div><b>OTA</b><span> wireless charging</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEURALINK -->
+<section id="neuralink" class="section reveal">
+  <div class="sec-tag">06 / BRAIN-COMPUTER INTERFACE</div>
+  <h2>Teknologi <em>Neuralink</em></h2>
+  <div class="nl-grid">
+    <div class="card big">
+      <h3>Implan N1 — Cara Kerja</h3>
+      <ol class="steps">
+        <li><b>Rekam:</b> 1024 elektroda merekam spike mentah dari korteks (±30 kHz).</li>
+        <li><b>Decode:</b> chip on-device + AI menerjemahkan niat gerak / bicara.</li>
+        <li><b>Aksi:</b> kursor, keyboard, lengan robot, atau sintesis suara dikendalikan pikiran.</li>
+        <li><b>Closed-loop:</b> stimulasi balik (rencana) untuk sentuhan & proprioception.</li>
+      </ol>
+      <div class="mono tag">Uji klinis PRIME: tetraplegia → kontrol kursor & Chess dengan pikiran (2024–2026)</div>
+    </div>
+    <div class="card big">
+      <h3>Timeline Neuralink</h3>
+      <ul class="timeline">
+        <li><span>2016</span> Neuralink didirikan</li>
+        <li><span>2019</span> Robot bedah dan threads diperkenalkan</li>
+        <li><span>2021</span> Demonstrasi kontrol Pong via BCI pada primata</li>
+        <li><span>2023</span> Persetujuan FDA untuk uji manusia pertama</li>
+        <li><span>2024</span> Kontrol kursor via pikiran pada partisipan pertama</li>
+        <li><span>2025</span> Pengembangan Blindsight dan decoding percakapan</li>
+        <li><span>2026</span> Multi-implant dan decoding tulisan tangan</li>
+      </ul>
+    </div>
+  </div>
+  <div class="ethics">
+    <div><b>Privasi neural:</b> kepemilikan dan perlindungan data spike otak.</div>
+    <div><b>Akses:</b> prioritas terapi medis dibanding augmentasi.</div>
+    <div><b>Keamanan:</b> biokompatibilitas jangka panjang dan pembaruan nirkabel.</div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="foot-grid">
+    <div><a class="logo"><span class="logo-mark"></span> NEURA<span>LINK</span>.LAB</a><p>Media edukasi interaktif — neurosains & AI. Bukan situs resmi Neuralink. Data bersifat ilustrasi edukatif, selalu cek publikasi primer.</p></div>
+    <div><h5>Eksplorasi</h5><a href="#otak">Otak</a><a href="#llm">Model Bahasa</a><a href="#lab">Lab</a></div>
+    <div><h5>Sumber Belajar</h5><a href="https://neuralink.com" target="_blank" rel="noopener">neuralink.com</a><a href="https://www.nature.com" target="_blank" rel="noopener">Nature Neuroscience</a><a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noopener">Attention Is All You Need</a></div>
+  </div>
+  <div class="mono foot-base">© 2026 Neuralink.Lab — dibuat untuk edukasi • tema: deep black • stack: HTML + CSS + JS + Chart.js</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
