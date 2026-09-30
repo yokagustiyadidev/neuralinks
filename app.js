@@ -6,6 +6,7 @@ function setMobileMenu(open) {
   menuBtn.classList.toggle('open', open);
   menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
   mobileMenu.setAttribute('aria-hidden', open ? 'false' : 'true');
+  document.body.classList.toggle('menu-open', open);
 }
 if (menuBtn && mobileMenu) {
   menuBtn.addEventListener('click', (e) => {
@@ -18,6 +19,10 @@ if (menuBtn && mobileMenu) {
     if (!menuBtn.contains(e.target) && !mobileMenu.contains(e.target) && mobileMenu.classList.contains('open')) {
       setMobileMenu(false);
     }
+  });
+  // landscape / rotate: drawer di atas fold tanpa tombol terlihat -> tutup otomatis
+  addEventListener('resize', () => {
+    if (mobileMenu.classList.contains('open') && innerWidth > innerHeight && innerWidth <= 960) setMobileMenu(false);
   });
 }
 
@@ -115,7 +120,8 @@ setInterval(()=>{ // spontaneous traveling pulse
 
 // ===== 2. HERO SPIKE TRAIN =====
 const hero = document.getElementById('spikeHero'), hctx = hero.getContext('2d');
-function fitHero(){ if(hero) hero.width = hero.offsetWidth || 340; }
+// resolusi internal tinggi mengikuti tinggi tampilan CSS (120px di mobile, 160 default) supaya tidak squish
+function fitHero(){ if(hero){ hero.width = hero.offsetWidth || 340; hero.height = hero.clientHeight || 160; } }
 fitHero();
 addEventListener('resize', fitHero);
 let hx = 0;

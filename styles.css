@@ -44,11 +44,15 @@ nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(16px);-webkit-backdrop
   top:100%;
   left:0;
   right:0;
+  max-height:calc(100dvh - 120px);
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
   background:rgba(8,8,14,0.98);
   backdrop-filter:blur(24px);
   -webkit-backdrop-filter:blur(24px);
   border-bottom:1px solid var(--line-strong);
-  padding:12px 16px 20px;
+  padding:12px 16px calc(20px + env(safe-area-inset-bottom));
   flex-direction:column;
   gap:7px;
   box-shadow:0 24px 60px rgba(0,0,0,0.85);
@@ -96,6 +100,7 @@ nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(16px);-webkit-backdrop
   border-radius:4px;
   background:#22d3ee14;
 }
+body.menu-open{overflow:hidden}
 .m-arr{
   margin-left:auto;
   color:var(--faint);
@@ -235,7 +240,8 @@ input[type=range]::-webkit-slider-thumb{margin-top:-6px}
 .electrodes{display:grid;grid-template-columns:repeat(16,1fr);gap:4px;margin:14px 0;background:#020208;border:1px solid var(--line);border-radius:14px;padding:12px;touch-action:manipulation}
 .electrodes div{aspect-ratio:1;border-radius:4px;background:#151527;border:1px solid #ffffff12;cursor:pointer;transition:.15s}
 .electrodes div.firing{background:var(--cyan);box-shadow:0 0 10px var(--cyan)}
-.electrodes div:hover,.electrodes div.selected{transform:scale(1.22);border-color:var(--lime);background:#22d3ee44;z-index:2;box-shadow:0 0 12px var(--lime)}
+.electrodes div.selected{transform:scale(1.22);border-color:var(--lime);background:#22d3ee44;z-index:2;box-shadow:0 0 12px var(--lime)}
+@media(hover:hover){.electrodes div:hover{transform:scale(1.22);border-color:var(--lime);background:#22d3ee44;z-index:2;box-shadow:0 0 12px var(--lime)}}
 #electrodeInfo{font-size:12px;color:var(--lime);margin-bottom:12px;min-height:18px;line-height:1.4}
 .n1-specs{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
 .n1-specs div{border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center;background:#ffffff05}
@@ -291,7 +297,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--line);background:#
 .switch input:checked+span::after{left:21px}
 .net-controls{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
 .net-wrap{position:relative;margin-top:10px}
-#netPlay{width:100%;background:radial-gradient(ellipse at 50% 40%,#0b0b1a,#020208 75%);border:1px solid #00e5ff33;border-radius:16px;cursor:crosshair;display:block}
+#netPlay{width:100%;background:radial-gradient(ellipse at 50% 40%,#0b0b1a,#020208 75%);border:1px solid #00e5ff33;border-radius:16px;cursor:crosshair;display:block;touch-action:none}
 .net-stats{position:absolute;top:10px;left:10px;right:10px;display:flex;gap:14px;flex-wrap:wrap;font-size:11px;color:var(--mut);pointer-events:none}
 .net-stats b{color:var(--lime)}
 
@@ -399,16 +405,16 @@ footer{position:relative;z-index:1;border-top:1px solid var(--line);background:#
   .pipe b{font-size:14px}
   .pipe p{font-size:12.5px;line-height:1.5}
 
-  .pg-controls select{font-size:12.5px;padding:8px 10px}
+  .pg-controls select{font-size:16px;padding:8px 10px}
   .pg-btn-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}
   .token-out{padding:12px;font-size:12.5px;min-height:74px}
   .prob-row{grid-template-columns:84px 1fr 42px;gap:6px;font-size:10.5px}
 
-  .att-words{gap:6px;margin:10px 0}
+  .att-words{gap:6px;margin:10px 0;justify-content:center}
   .att-words button{padding:7px 12px;font-size:12px;border-radius:6px}
   #attCanvas{height:180px;border-radius:10px}
 
-  .toggle-row{gap:6px;margin:14px 0}
+  .toggle-row{gap:6px;margin:14px 0;justify-content:center}
   .toggle{padding:8px 14px;font-size:12px}
   .table-scroll-hint{font-size:10.5px;padding:7px 10px}
   .compare{min-width:480px;font-size:12.5px}
@@ -450,4 +456,8 @@ footer{position:relative;z-index:1;border-top:1px solid var(--line);background:#
   .n1-specs b{font-size:15px}
   .ap-btn{font-size:10px}
   .ion{font-size:10.5px}
+  .compare{min-width:430px;font-size:12px}
+  .compare th,.compare td{padding:8px 10px}
+  .logo{font-size:12.5px}
+  h1{font-size:clamp(24px,8vw,30px)}
 }
